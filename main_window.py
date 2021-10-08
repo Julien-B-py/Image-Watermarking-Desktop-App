@@ -14,7 +14,7 @@ class MainWindow(Tk):
         self.create_widgets()
         self.setup_widgets_layout()
         self.all_images = []
-
+        # Window display
         self.mainloop()
 
     def config_window(self):
@@ -26,26 +26,25 @@ class MainWindow(Tk):
     def create_widgets(self):
         self.top_label = Label(self, text="Protect Your Images", height=4, fg="blue")
         self.top_label.config(font=("Arial", 15))
-        self.files_list = Listbox(self, selectmode=MULTIPLE, width=54, activestyle=None)
-        self.browse_button = Button(highlightthickness=0, text="Browse", width=12, command=self.add_image)
-        self.select_all_button = Button(highlightthickness=0, text="Delete all", width=12, command=self.delete_all)
-        self.start_button = Button(highlightthickness=0, text="Start", width=12, command=self.run_watermarking)
+        self.files_list = Listbox(self, width=54, activestyle=None)
+        self.browse_button = Button(text="Browse", width=12, command=self.add_image)
+        self.select_all_button = Button(text="Delete all", width=12, command=self.delete_all)
+        self.start_button = Button(text="Start", width=12, command=self.run_watermarking)
         self.wm_pos_label = Label(self, text='Watermark position: ')
         self.wm_pos_combobox = Combobox(self, values=POSITIONS, text='test', state='readonly', width=10)
+        # Set index 0 as active combobox item
         self.wm_pos_combobox.current(0)
-        self.watermark_button = Button(highlightthickness=0, text="Select your watermark image", width=25,
-                                       command=self.load_watermark_image)
+        self.watermark_button = Button(text="Select your watermark image", width=25, command=self.load_watermark_image)
 
     def setup_widgets_layout(self):
         self.top_label.grid(row=0, column=0, columnspan=3)
+        self.watermark_button.grid(row=1, columnspan=3, pady=10)
         self.files_list.grid(row=2, column=0, columnspan=3)
         self.browse_button.grid(row=3, column=0, pady=10, sticky=W)
         self.select_all_button.grid(row=3, column=1)
         self.start_button.grid(row=3, column=2, sticky=E)
         self.wm_pos_label.grid(row=4, column=1, sticky=E)
         self.wm_pos_combobox.grid(row=4, column=2, sticky=E)
-
-        self.watermark_button.grid(row=1, columnspan=3, pady=10)
 
     def on_closing(self):
         """
